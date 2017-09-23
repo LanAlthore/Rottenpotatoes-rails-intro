@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
       @release_hilite = 'hilite'
   else
     params[:ratings] ? @movies = Movie.where(rating: params[:ratings].key) :
-      @movie =1
+      movie =Movie.all
     end
 
   end
