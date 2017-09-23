@@ -26,10 +26,9 @@ class MoviesController < ApplicationController
     elsif @sort_by == 'release'
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
-    elsif @ratings
-      #Do nothing erro checking
     else
-      @movies =Movie.all
+      @ratings ? @movies = Movie.where(rating: @ratings.key):
+        @movies =Movie.all
     end
   end
 
