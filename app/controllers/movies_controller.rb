@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     # Deal with movie ratings now...
-    @all_ratings = Movie.get_possible_ratings
+    @all_ratings = ['G','PG','PG-13','R']
 
     # If user has specified 1 or more ratings, then update session ratings
     unless params[:ratings].nil?
