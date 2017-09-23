@@ -26,7 +26,7 @@ class MoviesController < ApplicationController
     elsif @sort_by == 'release'
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
-    elsif @ratings.nil
+    else
       @movies =Movie.all
     end
   end
