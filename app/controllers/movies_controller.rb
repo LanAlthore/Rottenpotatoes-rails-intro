@@ -12,9 +12,13 @@ class MoviesController < ApplicationController
 
   def index
     
-  @all_ratings = ['G','PG','PG-13','R']
+  @all_ratings = movie.all_ratings
+  @set_ratings = params[:ratings]
+  if !@set_ratings 
+    @set_ratings = Hash.new
+  end
   if params[:ratings]
-    @movies= Movie.where(ratings: params[:ratings].key)
+    @movies= Movie.where(:ratings => params[:ratings].key).find(:all, :order => (params[:sort_by]))
   end
     case params[:sort]
     when 'title'
