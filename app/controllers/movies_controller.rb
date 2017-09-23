@@ -11,15 +11,21 @@ class MoviesController < ApplicationController
   end
 
   def indexl
-    @movies = Movie.all
-    # :sort=>(:title)
+    @all_ratings = ['G','PG','PG-13','R']
+    if params[:ratings]
+      @movies= Movie.where(ratings: params[:ratings].key)
+    end
     case params[:sort]
     when 'title'
-      @movies = Movie.order('title ASC')
-      @title_hilite = 'hilite'
+    @movies = Movie.order('title ASC')
+    @title_hilite = 'hilite'
     when 'release_hilite'
-      @movies = Movie.order('release_date ASC')
+    @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
+    else
+      params[:ratings] ? @movies = Movie.where(rating: params[:ratings].key):
+        movie =Movie.all
+    end
   end
 
   def new
