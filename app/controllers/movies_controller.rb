@@ -10,11 +10,12 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
-  def indexl
-    @all_ratings = ['G','PG','PG-13','R']
-    if params[:ratings]
-      @movies= Movie.where(ratings: params[:ratings].key)
-    end
+  def index
+    
+  @all_ratings = ['G','PG','PG-13','R']
+  if params[:ratings]
+    @movies= Movie.where(ratings: params[:ratings].key)
+  end
     case params[:sort]
     when 'title'
     @movies = Movie.order('title ASC')
@@ -26,6 +27,7 @@ class MoviesController < ApplicationController
       params[:ratings] ? @movies = Movie.where(rating: params[:ratings].key):
         movie =Movie.all
     end
+
   end
 
   def new
