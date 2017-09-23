@@ -11,9 +11,9 @@ class MoviesController < ApplicationController
   end
 
   def index
-    
+    redirect = false
+    logger.debug(session.inspect)
     @all_ratings = ['G','PG','PG-13','R']
-    @ratings = params[:ratings]
     
     if params[:sort]
       @sort_by = params[:sort]
