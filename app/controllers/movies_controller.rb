@@ -27,12 +27,7 @@ class MoviesController < ApplicationController
     when 'release'
     @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
-  else
-    params[:ratings] ? @movies = Movie.where(rating: params[:ratings].key) :
-      @movies =Movie.all
     end
-
-  end
 
   def new
     # default: render 'new' template
