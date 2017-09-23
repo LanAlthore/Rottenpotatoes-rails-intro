@@ -42,7 +42,14 @@ class MoviesController < ApplicationController
     end
     
     if @ratings and @sort_by
-      @movies = Movie.where(:rating => @ratings.keys).order(@sort_by)
+      case @sort_by
+      when 'title'
+        @movies = Movie.where(:rating => @ratings.keys).order('title ASC')
+        @title_hilite = 'hilite'
+      when 'release'
+        @movies = Movie.where(:rating => @ratings.keys).order('release_date ASC')
+        @release_hilite = 'hilite'
+      end
     elsif @ratings
       @movies = Movie.where(:rating => @ratings.keys)
     elsif @sort_by
