@@ -16,20 +16,19 @@ class MoviesController < ApplicationController
     @sort_by = params[:sort]
     @ratings = params[:ratings]
   
-  
     if @sort_by == 'title'
       @movies = Movie.order('title ASC')
       @title_hilite = 'hilite'
     elsif @sort_by == 'release'
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
+    elsif @ratings
+      @movies= Movie.where(ratings: params[:ratings].keys)
     else
       @movies =Movie.all
     end
     
-    if @ratings
-      @movies= Movie.where(ratings: params[:ratings].keys)
-    end
+
   end
 
   def new
