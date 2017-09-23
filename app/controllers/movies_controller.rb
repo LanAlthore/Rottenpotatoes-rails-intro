@@ -13,6 +13,7 @@ class MoviesController < ApplicationController
   def index
     
   @all_ratings = ['G','PG','PG-13','R']
+  @all_ratings= Movie.all_ratings
   if params[:ratings]
     @movies= Movie.where(ratings: params[:ratings].keys)
   end
