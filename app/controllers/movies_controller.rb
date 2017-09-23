@@ -13,7 +13,6 @@ class MoviesController < ApplicationController
   def index
     
   @all_ratings = ['G','PG','PG-13','R']
-  @all_rating = Movie.distinct.pluck(:ratings)
   if params[:ratings]
     @movies= Movie.where(ratings: params[:ratings].keys)
   end
