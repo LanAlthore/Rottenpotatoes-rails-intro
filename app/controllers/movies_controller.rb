@@ -27,6 +27,7 @@ class MoviesController < ApplicationController
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
     else
+      @movies= Movie.where(ratings: params[:ratings].keys)
       @movies =Movie.all
   
     end
