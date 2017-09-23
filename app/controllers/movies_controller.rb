@@ -15,6 +15,10 @@ class MoviesController < ApplicationController
     @all_ratings = ['G','PG','PG-13','R']
     @sort_by = params[:sort]
     @ratings = params[:ratings]
+    
+    if @ratings
+      @movies= Movie.where(ratings: params[:ratings].keys)
+    end
   
     if @sort_by == 'title'
       @movies = Movie.order('title ASC')
@@ -22,6 +26,8 @@ class MoviesController < ApplicationController
     elsif @sort_by == 'release'
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
+    elsif @ratings
+      #Do nothing erro checking
     else
       @movies =Movie.all
     end
