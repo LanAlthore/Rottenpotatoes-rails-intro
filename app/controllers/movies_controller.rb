@@ -20,12 +20,12 @@ class MoviesController < ApplicationController
     when 'title'
     @movies = Movie.order('title ASC')
     @title_hilite = 'hilite'
-    when 'release_hilite'
+    when 'release'
     @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
-    else
-      params[:ratings] ? @movies = Movie.where(rating: params[:ratings].key):
-        movie =Movie.all
+  else
+    params[:ratings] ? @movies = Movie.where(rating: params[:ratings].key) :
+      movie =Movie.all
     end
 
   end
