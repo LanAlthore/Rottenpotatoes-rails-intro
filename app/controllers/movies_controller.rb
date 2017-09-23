@@ -44,7 +44,7 @@ class MoviesController < ApplicationController
     end
     
     if @ratings
-      @movies= Movie.where(ratings: params[:ratings].keys)
+      @movies= Movie.where(ratings: @ratings.keys)
     end
     
     if @ratings and @sort_by
