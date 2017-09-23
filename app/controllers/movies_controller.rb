@@ -16,9 +16,6 @@ class MoviesController < ApplicationController
     @sort_by = params[:sort]
     @ratings = params[:ratings]
   
-    if @ratings
-      @movies= Movie.where(ratings: params[:ratings].keys)
-    end
   
     if @sort_by == 'title'
       @movies = Movie.order('title ASC')
@@ -28,6 +25,10 @@ class MoviesController < ApplicationController
       @release_hilite = 'hilite'
     else
       @movies =Movie.all
+    
+    if @ratings
+      @movies= Movie.where(ratings: params[:ratings].keys)
+    end
   
     end
   end
