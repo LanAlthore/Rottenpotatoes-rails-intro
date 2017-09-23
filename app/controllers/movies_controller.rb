@@ -18,15 +18,18 @@ class MoviesController < ApplicationController
     
     if @ratings
       @movies= Movie.where(ratings: params[:ratings].keys)
+    end
   
-    elsif @sort_by == 'title'
+    case @sort_by 
+    when 'title'
       @movies = Movie.order('title ASC')
       @title_hilite = 'hilite'
-    elsif @sort_by == 'release'
+    when 'release'
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
     else
-      @movies =Movie.all
+      @ratings ? @movies = Movie.where(rating: params[:ratings].keys):
+        @movies =Movie.all
     end
   end
 
