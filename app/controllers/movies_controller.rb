@@ -11,31 +11,49 @@ class MoviesController < ApplicationController
   end
 
   def index
-    
-  @all_ratings = ['G','PG','PG-13','R']
-  @sort_by = params[:sort]
-  @ratings = params[:ratings]
-  
-  if @ratings and (@sort_by == 'title')
-      @movies= Movie.where(ratings: params[:ratings].keys).order('title ASC')
-  
-  elsif @ratings
-    @movies= Movie.where(ratings: params[:ratings].keys)
-  end
-  
-  case @sort_by
-    when 'title'
-    @movies = Movie.order('title ASC')
-    @title_hilite = 'hilite'
-    when 'release'
-    @movies = Movie.order('release_date ASC')
-      @release_hilite = 'hilite'
+    # Deal with movie ratings now...
+    @all_ratings = Movie.get_possible_ratings
+
+    # If user has specified 1 or more ratings, then update session ratings
+    unless params[:ratings].nil?
+      @filtered_ratings = params[:ratings]
+      session[:filtered_ratings] = @filtered_ratings
+    end
+
+    # If the user has specified a sorting mechanism, update session sorting mechanism
+    if params[:sorting_mechanism].nil?
+      # If user didn't specify a sorting mechanism, then we're going to sort by the
+      # sorting mechanism in our sessions
     else
-      @ratings ? @movies = Movie.where(rating: @ratings.keys) :
-        @movies =Movie.all
+      session[:sorting_mechanism] = params[:sorting_mechanism]
+    end
+
+    if params[:sorting_mechanism].nil? && params[:ratings].nil? && session[:filtered_ratings]
+      @filtered_ratings = session[:filtered_ratings]
+      @sorting_mechanism = session[:sorting_mechanism]
+      flash.keep
+      redirect_to movies_path({order_by: @sorting_mechanism, ratings: @filtered_ratings})
+    end
+
+    @movies = Movie.all
+
+    # Filter movies based on rating if our sessions hash has any ratings in it
+    if session[:filtered_ratings]
+      @movies = @movies.select{ |movie| session[:filtered_ratings].include? movie.rating }
+    end
+
+    # title_sort symbol was placed in the params
+    if session[:sorting_mechanism] == "title"
+      @movies = @movies.sort! { |a,b| a.title <=> b.title }
+      @movie_highlight = "hilite"
+    elsif session[:sorting_mechanism] == "release_date"
+      @movies = @movies.sort! { |a,b| a.release_date <=> b.release_date }
+      @date_highlight = "hilite"
+    else
+      
+    end
   end
 
-  end
 
   def new
     # default: render 'new' template
