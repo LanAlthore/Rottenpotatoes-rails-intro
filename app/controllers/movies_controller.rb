@@ -26,7 +26,10 @@ class MoviesController < ApplicationController
     elsif @sort_by == 'release'
       @movies = Movie.order('release_date ASC')
       @release_hilite = 'hilite'
+    else
+      @movies =Movie.all
     end
+    @movies =Movie.all
   end
 
   def new
