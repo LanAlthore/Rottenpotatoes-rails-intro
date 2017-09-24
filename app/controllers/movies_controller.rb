@@ -13,9 +13,7 @@ class MoviesController < ApplicationController
   def index
     @all_ratings=['G','PG','PG-13','R']
     @ratings= params[:ratings]
-    if @ratings
-      @movies= Movie.where(ratings: @ratings.keys)
-    end
+    
     
   end
 
