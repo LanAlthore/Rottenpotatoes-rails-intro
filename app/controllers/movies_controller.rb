@@ -15,11 +15,12 @@ class MoviesController < ApplicationController
     @mark=['G','PG','PG-13','R']
     @ratings= params[:ratings]
     
-    if @ratings
-      @movies= Movie.where(ratings: @ratings.keys)
+    if params[:ratings]
+      @movies= Movie.where(ratings: params[:ratings].keys)
     else
       @movies = Movie.all
     end
+    @movies = Movie.all
     
   end
 
