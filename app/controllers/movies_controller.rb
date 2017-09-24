@@ -37,6 +37,11 @@ class MoviesController < ApplicationController
       @ratings = nil
     end
     
+    if redirect
+      flash.keep
+      redirect_to movies_path :sort_by=>@sort_by, :ratings=>@ratings
+    end  
+    
     if @ratings and @sort_by
       case @sort_by
       when 'title'
