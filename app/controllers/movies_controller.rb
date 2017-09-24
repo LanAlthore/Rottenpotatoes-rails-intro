@@ -42,7 +42,7 @@ class MoviesController < ApplicationController
       @ratings={"R"=>1,"PG-13"=>1,"PG"=>1}
       @mark={"R"=>1,"PG-13"=>1,"PG"=>1}
     else
-      @mark={"R"=>1,"PG-13"=>1,"PG"=>1}
+      @mark=@ratings
     end
     
     if @ratings and @sort_by
