@@ -36,7 +36,7 @@ class MoviesController < ApplicationController
       @ratings = nil
     end
     
-    if @ratings.nil
+    if @ratings.nil?
       @mark=[]
     else
       @mark=@ratings
