@@ -67,7 +67,8 @@ class MoviesController < ApplicationController
     end
     
     if params[:ratings]
-      @movies = Movie.where(:rating => params[:ratings].keys)
+      @movies = Movie.where(:rating => params[:ratings].keys).order('title ASC')
+      @title_hilite = 'hilite'
     end
     
     if !@ratings
