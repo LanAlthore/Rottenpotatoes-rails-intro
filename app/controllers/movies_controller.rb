@@ -37,7 +37,7 @@ class MoviesController < ApplicationController
     end
     
     if @ratings.nil?
-      @ratings=["R","PG-13","PG"]
+      @ratings={"R"=>1,"PG-13"=>1,"PG"=>1}
       @mark=[]
     else
       @mark=@ratings
