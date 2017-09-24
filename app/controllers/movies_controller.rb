@@ -40,7 +40,7 @@ class MoviesController < ApplicationController
     if @ratings.nil?
       session[:ratings]={"R"=>1,"PG-13"=>1,"PG"=>1}
       @ratings={"R"=>1,"PG-13"=>1,"PG"=>1}
-      @mark=[]
+      @mark=["R","PG-13","PG"]
     else
       @mark=@ratings
     end
