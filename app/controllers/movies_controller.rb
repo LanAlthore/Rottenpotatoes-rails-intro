@@ -13,7 +13,6 @@ class MoviesController < ApplicationController
   def index
     redirect = false
     @all_ratings = ['G','PG','PG-13','R']
-    @mark = ['G','PG','PG-13','R']
     if params[:sort]
       @sort_by = params[:sort]
       session[:sort_by]=params[:sort]
@@ -36,7 +35,7 @@ class MoviesController < ApplicationController
     else
       @ratings = nil
     end
-    
+    @mark=@ratings
     if @ratings and @sort_by
       case @sort_by
       when 'title'
