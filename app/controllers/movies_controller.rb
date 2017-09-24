@@ -33,10 +33,12 @@ class MoviesController < ApplicationController
       @ratings = session[:ratings]
       redirect=true
     else
+      session[:ratings]=nil
       @ratings = nil
     end
     
     if @ratings.nil?
+      session[:ratings]={"R"=>1,"PG-13"=>1,"PG"=>1}
       @ratings={"R"=>1,"PG-13"=>1,"PG"=>1}
       @mark=[]
     else
