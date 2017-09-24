@@ -35,7 +35,13 @@ class MoviesController < ApplicationController
     else
       @ratings = nil
     end
-    @mark=@ratings
+    
+    if @ratings.nil
+      @mark=[]
+    else
+      @mark=@ratings
+    end
+    
     if @ratings and @sort_by
       case @sort_by
       when 'title'
