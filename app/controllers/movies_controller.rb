@@ -11,34 +11,31 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if(!params.has_key?(:sort) && !params.has_key?(:ratings))
-      if(session.has_key?(:sort) || session.has_key?(:ratings))
-        redirect_to movies_path(:sort=>session[:sort], :ratings=>session[:ratings])
-      end
-    end
-    @sort = params.has_key?(:sort) ? (session[:sort] = params[:sort]) : session[:sort]
-    @all_ratings = Movie.all_ratings.keys
-    @ratings = params[:ratings]
-    if(@ratings != nil)
-      ratings = @ratings.keys
-      session[:ratings] = @ratings
-    else
-      if(!params.has_key?(:commit) && !params.has_key?(:sort))
-        ratings = Movie.all_ratings.keys
-        session[:ratings] = Movie.all_ratings
-      else
-        ratings = session[:ratings].keys
-      end
-    end
-    @movies = Movie.order(@sort).find_all_by_rating(ratings)
-    @mark  = ratings
-
-  end
+    redirect = false
+    @all_ratings = ['G','PG','PG-13','R']
     
-    if redirect
-      flash.keep
-      redirect_to movies_path :sort_by=>@sort_by, :ratings=>@ratings
-    end  
+    if params[:sort]
+      @sort_by = params[:sort]
+      session[:sort_by]=params[:sort]
+    elsif session[:sort_by]
+      @sort_by = session[:sort_by]
+      redirect=true
+    else
+      @sort_by = nil
+    end
+    
+    if params[:commit] == "Refresh" and params[:rating].nil?
+      @rating = nil
+      session[:ratings] = nil
+    elsif params[:ratings]
+      @ratings = params[:ratings]
+      session[:ratings]=params[:ratings]
+    elsif session[:ratings]
+      @ratings = session[:ratings]
+      redirect=true
+    else
+      @ratings = nil
+    end
     
     if @ratings and @sort_by
       case @sort_by
