@@ -69,11 +69,6 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
-    if @ratings
-      @movies = Movie.where(:rating => @ratings.keys).order('title ASC')
-      @title_hilite = 'hilite'
-    end
-    
     if !@ratings
       @ratings = Hash.new
     end
