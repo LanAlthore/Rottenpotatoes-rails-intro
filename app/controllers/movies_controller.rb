@@ -66,6 +66,10 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
+    if params[:ratings]
+      @movies = Movie.where(ratings: params[:ratings].keys)
+    end
+    
     if !@ratings
       @ratings = Hash.new
     end
