@@ -23,9 +23,9 @@ class MoviesController < ApplicationController
       @sort_by = nil
     end
     
-    if params[:commit] == "Refresh" and params[:rating] == nil
-      @ratings = session[:ratings]
-      session[:ratings] = {"G"=>1}
+    if params[:commit] == "Refresh" and session[:ratings] == nil
+      @ratings = {"G"=>1,"PG"=>1,"R"=>1,"PG-13"=>1}
+      session[:ratings] = {"G"=>1,"PG"=>1,"R"=>1,"PG-13"=>1}
     elsif params[:ratings]
       @ratings = params[:ratings]
       session[:ratings]=params[:ratings]
