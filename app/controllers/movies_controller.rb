@@ -50,7 +50,7 @@ class MoviesController < ApplicationController
       when 'title'
         @movies = Movie.where(:rating => @ratings.keys).order('title ASC')
         @title_hilite = 'hilite'
-      when 'release'
+      when 'release_date'
         @movies = Movie.where(:rating => @ratings.keys).order('release_date ASC')
         @release_hilite = 'hilite'
       end
@@ -61,7 +61,7 @@ class MoviesController < ApplicationController
         when 'title'
           @movies = Movie.order('title ASC')
           @title_hilite = 'hilite'
-        when 'release'
+        when 'release_date'
           @movies = Movie.order('release_date ASC')
           @release_hilite = 'hilite'
       end
